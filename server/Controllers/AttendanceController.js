@@ -6,7 +6,7 @@ const autoAssignLeads = require("../Services/AutoAssignLeads");
 const getTodayDate = () => new Date().toISOString().split("T")[0];
 const getCurrentTime = () => new Date().toLocaleTimeString("en-IN");
 
-const EMPTY_TIME = "--:--__";
+const EMPTY_TIME = null;
 
 const pushActivity = async (employeeId, activity) => {
   await Employee.findByIdAndUpdate(employeeId, {
@@ -142,20 +142,20 @@ const checkOut = async (req, res) => {
     const assignedDate = getTodayDate();
 
     const attendance = await Attendance.findOne({ employeeId, assignedDate });
-
-    if (!attendance || attendance.checkIn === EMPTY_TIME) {
+    
+    if (!attendance || !attendance.checkIn) {
       return res.status(400).json({ message: "Check-in required" });
     }
 
-    if (attendance.checkOut !== EMPTY_TIME) {
+    if (attendance.checkOut) {
       return res.status(400).json({ message: "Already checked out" });
     }
 
-    // Prevent checkout during active break
-    if (
-      attendance.breaks.length === 1 &&
-      attendance.breaks[0].breakEnd === EMPTY_TIME
-    ) {
+    const activeBreak = attendance.breaks.find(
+      (b) => b.breakStart && !b.breakEnd
+    );
+    
+    if (activeBreak) {
       return res.status(400).json({ message: "End break before checkout" });
     }
 
@@ -175,6 +175,7 @@ const checkOut = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 module.exports = {
   getTodayAttendance,
