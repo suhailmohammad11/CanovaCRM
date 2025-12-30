@@ -23,7 +23,7 @@ const Home = () => {
       fetchTodayAttendance();
       getRecentActivity();
     }
-  }, [authReady, emp]);
+  }, [authReady, emp, fetchTodayAttendance, getRecentActivity]);
 
   if (loading) return <p>Loading...</p>;
 

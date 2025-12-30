@@ -25,7 +25,7 @@ export const AttendanceProvider = ({ children }) => {
 
     try {
       const res = await axios.get(
-        "http://localhost:4000/api/employee/attendance/today",
+        `${process.env.REACT_APP_API_URL}/api/employee/attendance/today`,
         authConfig
       );
       setAttendance(res.data);
@@ -40,7 +40,7 @@ export const AttendanceProvider = ({ children }) => {
   const checkIn = async () => {
     if (!authConfig) return;
     const res = await axios.post(
-      "http://localhost:4000/api/employee/attendance/check-in",
+      `${process.env.REACT_APP_API_URL}/api/employee/attendance/check-in`,
       {},
       authConfig
     );
@@ -50,7 +50,7 @@ export const AttendanceProvider = ({ children }) => {
   const handleBreak = async () => {
     if (!authConfig) return;
     const res = await axios.post(
-      "http://localhost:4000/api/employee/attendance/break",
+      `${process.env.REACT_APP_API_URL}/api/employee/attendance/break`,
       {},
       authConfig
     );
@@ -60,7 +60,7 @@ export const AttendanceProvider = ({ children }) => {
   const checkOut = async () => {
     if (!authConfig) return;
     const res = await axios.post(
-      "http://localhost:4000/api/employee/attendance/check-out",
+      `${process.env.REACT_APP_API_URL}/api/employee/attendance/check-out`,
       {},
       authConfig
     );
@@ -72,7 +72,7 @@ export const AttendanceProvider = ({ children }) => {
 
     try {
       const res = await axios.get(
-        "http://localhost:4000/api/employee/attendance/history",
+        `${process.env.REACT_APP_API_URL}/api/employee/attendance/history`,
         authConfig
       );
       setFourDays(res.data);
@@ -93,7 +93,7 @@ export const AttendanceProvider = ({ children }) => {
       setTodayLoading(false);
       setHistoryLoading(false);
     }
-  }, [authReady, emp]);
+  }, [authReady, emp, fetchTodayAttendance,getLastFourDaysAttendance]);
 
   const loading = todayLoading || historyLoading;
 

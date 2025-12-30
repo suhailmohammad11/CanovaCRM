@@ -26,7 +26,7 @@ export const EmployeeContextProvider = ({ children }) => {
     try {
       if (!emp?.token) return;
       const response = await axios.get(
-        "http://localhost:4000/api/employees/Home/Leads",
+        `${process.env.REACT_APP_API_URL}/api/employees/Home/Leads`,
         {
           headers: {
             Authorization: `Bearer ${emp.token}`,
@@ -43,7 +43,7 @@ export const EmployeeContextProvider = ({ children }) => {
   const changeType = async (id, type) => {
     try {
       await axios.patch(
-        `http://localhost:4000/api/employees/Home/Lead/changeType/${id}`,
+        `${process.env.REACT_APP_API_URL}/api/employees/Home/Lead/changeType/${id}`,
         { type },
         {
           headers: {
@@ -62,7 +62,7 @@ export const EmployeeContextProvider = ({ children }) => {
   const scheduleLead = async (id, scheduledDate) => {
     try {
       await axios.patch(
-        `http://localhost:4000/api/employees/Home/Lead/scheduleDate/${id}`,
+        `${process.env.REACT_APP_API_URL}/api/employees/Home/Lead/scheduleDate/${id}`,
         { scheduledDate },
         {
           headers: {
@@ -82,7 +82,7 @@ export const EmployeeContextProvider = ({ children }) => {
   const closeLead = async (id) => {
     try {
       await axios.patch(
-        `http://localhost:4000/api/employees/Home/Leads/closeLead/${id}`,
+        `${process.env.REACT_APP_API_URL}/api/employees/Home/Leads/closeLead/${id}`,
         {},
         {
           headers: {
@@ -102,7 +102,7 @@ export const EmployeeContextProvider = ({ children }) => {
     try {
       if (!emp?.id || !emp?.token) return;
       const response = await axios.get(
-        `http://localhost:4000/api/employees/Home/Profile/${emp.id}`,
+        `${process.env.REACT_APP_API_URL}/api/employees/Home/Profile/${emp.id}`,
         {
           headers: {
             Authorization: `Bearer ${emp.token}`,
@@ -121,7 +121,7 @@ export const EmployeeContextProvider = ({ children }) => {
       alert("Error fetching Details");
       console.log(err);
     }
-  }, [emp]);
+  }, [emp, editProfileForm]);
 
   //Edit Profile
   const editProfile = async (id) => {
@@ -129,7 +129,7 @@ export const EmployeeContextProvider = ({ children }) => {
       if (!emp?.id || !emp?.token) return;
       const { firstName, lastName, email, password } = editProfileForm;
       await axios.put(
-        `http://localhost:4000/api/employees/Home/Profile/${id}`,
+        `${process.env.REACT_APP_API_URL}/api/employees/Home/Profile/${id}`,
         { firstName, lastName, email, password },
         {
           headers: {
@@ -149,7 +149,7 @@ export const EmployeeContextProvider = ({ children }) => {
     try {
       if (!emp?.id || !emp?.token) return;
       const res = await axios.get(
-        "http://localhost:4000/api/employees/Home/recentActivity",
+        `${process.env.REACT_APP_API_URL}/api/employees/Home/recentActivity`,
         {
           headers: {
             Authorization: `Bearer ${emp.token}`,
