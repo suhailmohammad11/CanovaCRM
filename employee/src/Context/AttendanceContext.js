@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useCallback, useMemo } from "react";
 import axios from "axios";
 import { useAuthContext } from "../Hooks/useAuthContext";
 
@@ -11,31 +11,33 @@ export const AttendanceProvider = ({ children }) => {
   const { emp, authReady } = useAuthContext();
   const [fourDays, setFourDays] = useState([]);
 
-  const authConfig =
-    emp && emp.token
-      ? {
-          headers: {
-            Authorization: `Bearer ${emp.token}`,
-          },
-        }
-      : null;
-
-  const fetchTodayAttendance = async () => {
-    if (!authConfig) return;
-
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/employee/attendance/today`,
-        authConfig
-      );
-      setAttendance(res.data);
-    } catch (err) {
-      console.error(err);
-      setAttendance(null);
-    } finally {
-      setTodayLoading(false);
-    }
+const authConfig = useMemo(() => {
+  if (!emp?.token) return null;
+  return {
+    headers: {
+      Authorization: `Bearer ${emp.token}`,
+    },
   };
+}, [emp]);
+
+
+ const fetchTodayAttendance = useCallback(async () => {
+  if (!authConfig) return;
+
+  try {
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/employee/attendance/today`,
+      authConfig
+    );
+    setAttendance(res.data);
+  } catch (err) {
+    console.error(err);
+    setAttendance(null);
+  } finally {
+    setTodayLoading(false);
+  }
+}, [authConfig]);
+
 
   const checkIn = async () => {
     if (!authConfig) return;
@@ -67,22 +69,23 @@ export const AttendanceProvider = ({ children }) => {
     setAttendance(res.data);
   };
 
-  const getLastFourDaysAttendance = async () => {
-    if (!authConfig) return;
+const getLastFourDaysAttendance = useCallback(async () => {
+  if (!authConfig) return;
 
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/employee/attendance/history`,
-        authConfig
-      );
-      setFourDays(res.data);
-    } catch (err) {
-      console.error(err);
-      setFourDays([]);
-    } finally {
-      setHistoryLoading(false);
-    }
-  };
+  try {
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/employee/attendance/history`,
+      authConfig
+    );
+    setFourDays(res.data);
+  } catch (err) {
+    console.error(err);
+    setFourDays([]);
+  } finally {
+    setHistoryLoading(false);
+  }
+}, [authConfig]);
+
 
   useEffect(() => {
     if (authReady && emp) {

@@ -42,6 +42,7 @@ export const EmployeeContextProvider = ({ children }) => {
   //change type of the lead
   const changeType = async (id, type) => {
     try {
+       if (!emp?.token) return;
       await axios.patch(
         `${process.env.REACT_APP_API_URL}/api/employees/Home/Lead/changeType/${id}`,
         { type },
@@ -61,6 +62,7 @@ export const EmployeeContextProvider = ({ children }) => {
   //schedule time and date
   const scheduleLead = async (id, scheduledDate) => {
     try {
+       if (!emp?.token) return;
       await axios.patch(
         `${process.env.REACT_APP_API_URL}/api/employees/Home/Lead/scheduleDate/${id}`,
         { scheduledDate },
@@ -81,6 +83,7 @@ export const EmployeeContextProvider = ({ children }) => {
   //close lead
   const closeLead = async (id) => {
     try {
+       if (!emp?.token) return;
       await axios.patch(
         `${process.env.REACT_APP_API_URL}/api/employees/Home/Leads/closeLead/${id}`,
         {},
@@ -98,30 +101,32 @@ export const EmployeeContextProvider = ({ children }) => {
   };
 
   //Get Current employee details
-  const getEmployeeDetails = useCallback(async () => {
-    try {
-      if (!emp?.id || !emp?.token) return;
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/employees/Home/Profile/${emp.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${emp.token}`,
-          },
-        }
-      );
-      const employee = response.data;
-      setEditProfileForm({
-        ...editProfileForm,
-        firstName: employee.firstName,
-        lastName: employee.lastName,
-        email: employee.email,
-        password: "",
-      });
-    } catch (err) {
-      alert("Error fetching Details");
-      console.log(err);
-    }
-  }, [emp, editProfileForm]);
+ const getEmployeeDetails = useCallback(async () => {
+  try {
+    if (!emp?.id || !emp?.token) return;
+
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/employees/Home/Profile/${emp.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${emp.token}`,
+        },
+      }
+    );
+
+    const employee = response.data;
+
+    setEditProfileForm(prev => ({
+      ...prev,
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      email: employee.email,
+      password: "",
+    }));
+  } catch (err) {
+    console.log(err);
+  }
+}, [emp]);
 
   //Edit Profile
   const editProfile = async (id) => {
@@ -139,29 +144,33 @@ export const EmployeeContextProvider = ({ children }) => {
       );
       alert("Edited Successfully");
     } catch (err) {
-      alert("Error Editing Profile");
-      console.log(err);
-    }
+  console.error(
+    "Recent activity error:",
+    err.response?.data || err.message
+  );
+}
   };
 
   //get recent activity
-  const getRecentActivity = async () => {
-    try {
-      if (!emp?.id || !emp?.token) return;
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/employees/Home/recentActivity`,
-        {
-          headers: {
-            Authorization: `Bearer ${emp.token}`,
-          },
-        }
-      );
-      setRecentActivity(res.data);
-    } catch (err) {
-      alert("Error Fetching Activity");
-      console.log(err);
-    }
-  };
+ const getRecentActivity = useCallback(async () => {
+  try {
+    if (!emp?.token) return;
+
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/employees/Home/recentActivity`,
+      {
+        headers: {
+          Authorization: `Bearer ${emp.token}`,
+        },
+      }
+    );
+
+    setRecentActivity(res.data);
+  } catch (err) {
+    console.log(err);
+  }
+}, [emp]);
+
   return (
     <EmpLeadData.Provider
       value={{
