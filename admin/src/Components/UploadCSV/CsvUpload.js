@@ -8,39 +8,31 @@ const CsvUpload = ({ close }) => {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [fileName, setFileName] = useState("");
-  const [step, setStep] = useState(""); 
+  const [step, setStep] = useState("IMPORT"); // IMPORT -> IMPORTED -> ASSIGNED
 
+  // Handle file browse & import
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    if (!file.name.endsWith(".csv")) {
-      alert("Please upload a CSV file only");
-      return;
-    }
-
-    e.target.value = null; 
     setFileName(file.name);
     setUploading(true);
     setProgress(0);
 
     const reader = new FileReader();
-
     reader.onload = async (event) => {
       try {
         const csvText = event.target.result;
-
         await importCsvLeads(csvText, setProgress);
 
         setUploading(false);
-        setStep("IMPORTED"); 
+        setStep("IMPORTED"); // ✅ stop after import
       } catch (err) {
         console.error(err);
-        alert(err.response?.data?.message || "Import failed");
+        alert("CSV import failed");
         setUploading(false);
       }
     };
-
     reader.readAsText(file);
   };
 
@@ -66,7 +58,6 @@ const CsvUpload = ({ close }) => {
               <div className="upload-img-title">
                 <img src="upload.png" alt="upload" className="upload-icon" />
                 <p className="drag">Drag your file(s) to start uploading</p>
-
                 <div className="or">
                   <img src="long-line.png" alt="line" className="b-line" />
                   <p className="or-p">OR</p>
@@ -90,14 +81,9 @@ const CsvUpload = ({ close }) => {
           ) : (
             <div className="upload-loader">
               <p className="file-name">{fileName}</p>
-
               <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${progress}%` }}
-                />
+                <div className="progress-fill" style={{ width: `${progress}%` }} />
               </div>
-
               <p className="progress-text">{progress}% Uploading...</p>
             </div>
           )}
@@ -112,14 +98,16 @@ const CsvUpload = ({ close }) => {
             <button
               className="next-btn"
               onClick={async () => {
+                setUploading(true);
                 try {
-                  setUploading(true);
                   await assignImportedLeads();
-                  setUploading(false);
+                  setStep("ASSIGNED");
+                  alert("Leads assigned successfully!");
                   close();
                 } catch (err) {
+                  alert("Lead assignment failed");
+                } finally {
                   setUploading(false);
-                  alert(err.response?.data?.message || "Assignment failed");
                 }
               }}
             >
