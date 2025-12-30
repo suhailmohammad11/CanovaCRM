@@ -1,3 +1,6 @@
+const Employee = require("../Models/Employees");
+const Lead = require("../Models/Leads");
+
 const leadAssignments = async (req, res) => {
   try {
     const employees = await Employee.find({ status: "active" });
@@ -78,3 +81,4 @@ const leadAssignments = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+module.exports = { leadAssignments };
