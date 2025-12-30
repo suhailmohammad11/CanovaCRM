@@ -1,0 +1,107 @@
+.path-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin:0px 10px;
+}
+
+.path-crumbs{
+    display: flex;
+    gap:10px;
+    align-items: center;
+    padding:0px 20px;
+}
+
+.crumb-right{
+    width:20px;
+    height:20px;
+    cursor: pointer;
+}
+
+.path-crumbs p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: "REM",sans-serif;
+    color:#616161;
+    cursor: pointer;
+}
+.edit-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: "Poppins",sans-serif;
+    margin:10px;
+    padding-inline: 20px;
+    padding-bottom: 20px;
+    border-radius: 16px;
+    border:1px solid black;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}
+
+label{
+    display: flex;
+    flex-direction: column;
+}
+
+label p{
+    height:10px;
+    color:#5E5E5E;
+    font-size:12px;
+}
+
+label input{
+    padding:8px 13px;
+    font-size: 12px;
+    border-radius: 11px;
+    border: 1px solid #3E3E3E;
+    width:50%;
+}
+
+.edit-line{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.lines{
+    display: flex;
+    flex-direction: column;
+}
+
+.under-line{
+    height:3px;
+    width:9%
+}
+
+.long-line{
+    height:2px;
+}
+
+.edit-title{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    font-size: 13px;
+}
+.edit-p{
+    height:8px;
+    color:#5E5E5E;
+    padding-left: 20px;
+}
+
+.save-button{
+    border-radius: 12px;
+    color: #636060;
+    background-color: #D9D9D9;
+    border-color: transparent;
+    padding:8px 50px;
+    font-weight:bold;
+    text-align: center;
+    align-self: flex-end;
+    margin-top: 70px;
+    margin-right:20px
+}

@@ -1,0 +1,64 @@
+.employee-form {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    width: 100vw;
+}
+
+.employee-edit-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+
+.edit-form-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    gap: 2px;
+}
+
+.edit-form-p {
+    height: 7px;
+    font-family: "Poppins", sans-serif;
+    color: #5E5E5E;
+    font-size: 11px;
+}
+
+.edit-form-input {
+    border: unset;
+    border-radius: 7px;
+    border: 0.2px solid #393939;
+    font-family: "Poppins", sans-serif;
+    padding: 6px;
+    max-width: 320px;
+    color: #393939;
+    font-size: 11px;
+}
+
+.edit-form-btns {
+    display: flex;
+    padding-top: 45px;
+    align-self: flex-start;
+    gap: 10px;
+}
+
+.edit-form-save,
+.edit-form-logout {
+    padding: 5px 40px;
+    border-radius: 10px;
+    border-color: transparent;
+}
+
+.edit-form-save {
+    background-color: rgb(32, 81, 229);
+    color: white;
+}
+
+.edit-form-logout {
+    background-color: rgb(229, 52, 32);
+    color: white;
+}

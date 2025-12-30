@@ -1,0 +1,185 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: "REM", sans-serif;
+    min-width: 50vw;
+    padding: 10px;
+    margin: 0px 10px;
+}
+
+.timings,
+.timings-data-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.timings-title {
+    font-weight: bold;
+    color: #0d1829;
+    font-size: 15px;
+}
+
+
+.check-in-out-div,
+.break-ended-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2051e5;
+    border: 2px solid #d0d0d0;
+    border-radius: 14px;
+    padding: 0px 20px;
+    margin: 5px 0px;
+}
+
+.check-in-out-div p,
+.break-ended-div p {
+    margin: 0;
+}
+
+.check-in-out,
+.break-ended,
+.time-break {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    min-width: 300px;
+    padding-right: 20px;
+}
+
+.check-in-data,
+.check-out-data,
+.break-data,
+.ended-data {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 7px 0px;
+}
+
+.time-title,
+.time-data {
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.timings-data-div {
+    background-color: #e4e8f2;
+    border-radius: 14px;
+    border: 1px solid #d0d0d0;
+    padding: 10px;
+}
+
+.switch {
+    align-items: center;
+}
+
+.switch-btn {
+    width: 13px;
+    height: 37px;
+}
+
+.disabled {
+    width: 13px;
+    height: 37px;
+}
+
+
+.home-activity {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 10px;
+}
+
+.home-activity p {
+    margin: 0;
+}
+
+.back-page {
+    display: flex;
+}
+
+.timings-data {
+    max-height: 160px;
+    overflow-y: auto;
+    display: flex;
+    background-color: #e9e9e9;
+    overflow: auto;
+    min-width: 50vw;
+    border-radius: 14px;
+}
+
+.recent-activty {
+    background-color: #e9e9e9;
+    border-radius: 14px;
+}
+
+.ended-data {
+    position: relative;
+    z-index: 2;
+}
+
+.four-days-history {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: "REM", sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    background-color: #e9e9e9;
+    border-radius: 14px;
+    padding: 40px 10px 10px 10px;
+    margin-top: -30px;
+    min-width: 95%;
+    z-index: 0;
+}
+
+.break-ended-div {
+    position: relative;
+    z-index: 1;
+}
+
+.four-day-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+.break-history {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.activity-break-start,
+.activity-break-end,
+.activity-date {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.activity-break-start p,
+.activity-break-end p,
+.activity-date p {
+    margin: 0;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+li {
+    font-family: "REM", sans-serif;
+    color: #616161;
+    font-size: 15px;
+}

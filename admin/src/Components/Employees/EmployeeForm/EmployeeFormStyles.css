@@ -1,0 +1,72 @@
+.path-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.path-crumbs {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.crumb-right {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.path-crumbs p {
+    font-size: medium;
+    font-family: "REM", sans-serif;
+    color: #616161;
+    cursor: pointer;
+}
+
+.Employee-form {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.employee-form,
+.employee-update-form {
+    margin-top: 20px;
+    background-color: white;
+    width: 70%;
+    border-radius: 12px;
+    padding-bottom: 20px;
+    margin-left: 200px;
+}
+
+.employee-form-p {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close {
+    width: 24px;
+    height: 24px;
+    padding-right: 20px;
+}
+
+.title-p {
+    font-family: "Poppins", sans-serif;
+    padding-left: 20px;
+
+}
+
+.employee-form label,
+.employee-update-form label {
+    padding-left: 40px;
+}

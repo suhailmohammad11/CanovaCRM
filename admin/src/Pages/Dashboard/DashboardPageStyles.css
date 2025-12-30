@@ -1,0 +1,13 @@
+.dashboard-page {
+    display: flex;
+}
+
+.dashboard-navbar {
+    width: 17vw;
+    height: 100vh;
+}
+
+.dashboard-dashboard {
+    width: 83vw;
+    height: 100vw;
+}

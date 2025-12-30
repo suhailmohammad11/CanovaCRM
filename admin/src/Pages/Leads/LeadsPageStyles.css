@@ -1,0 +1,13 @@
+.leads-page {
+    display: flex;
+}
+
+.leads-navbar {
+    width: 17vw;
+    height: 100vh;
+}
+
+.leads-leads {
+    width: 83vw;
+    height: 100vh;
+}

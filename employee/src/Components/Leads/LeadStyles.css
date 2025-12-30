@@ -1,0 +1,120 @@
+.leads {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    font-family: "Inter", sans-serif;
+}
+
+.assigned-lead,
+.closed-lead {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    background-color: #EEEEEE;
+    padding: 0px 20px;
+    border-radius: 14px;
+}
+
+.div-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.name-email-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.lead-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.lead-email {
+    position: absolute;
+    top: 32px;
+    color: rgb(107, 120, 142);
+    font-size: 15px;
+}
+
+.date-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+}
+
+.date {
+    color: #445668;
+    font-size: small;
+}
+
+.icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+}
+
+.div-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.lead-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.hot-type,
+.warm-type,
+.cold-type {
+    position: relative;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.hot-type {
+    background-color: #F77307;
+}
+
+.warm-type {
+    background-color: #F7D307;
+}
+
+.cold-type {
+    background-color: #07EFF7;
+}
+
+.status {
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    background-color: #EEEEEE;
+    border-radius: 50%;
+    width: 63px;
+    height: 63px;
+    top: 8px;
+    left: 8px;
+}
+
+.status p {
+    padding: 5px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 15px;
+}

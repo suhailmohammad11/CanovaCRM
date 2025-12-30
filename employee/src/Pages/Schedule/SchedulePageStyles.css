@@ -1,0 +1,23 @@
+.schedule-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.schedule-page-header {
+  height: 15vh;
+  flex-shrink: 0;
+}
+
+.schedule-page-search .search-title {
+  min-width: 70%;
+}
+
+.schedule-page-leads {
+  flex: 1;
+  height: 75vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

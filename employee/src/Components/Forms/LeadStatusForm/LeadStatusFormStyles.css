@@ -1,0 +1,55 @@
+.lead-status-form {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+  margin: 15px;
+  background-color: #fff;
+  z-index: 1;
+  top: 110px;
+  right: 20px;
+  padding: 0px 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.304)
+}
+
+.info-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.lead-status-form p {
+  font-size: 18px;
+}
+
+.status-select {
+  font-family: "Inter", sans-serif;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  color: #8A8A8A;
+  border: 1px solid #c8c8c8;
+  cursor: pointer;
+  letter-spacing: 1px;
+  background-image: url("../../../../public/arrow-icon.png");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 12px;
+}
+
+.status-icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.status-icon p {
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+  color: rgb(66, 82, 109);
+  font-weight: 600;
+}

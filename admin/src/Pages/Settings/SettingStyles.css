@@ -1,0 +1,27 @@
+.settings-page {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 83vw;
+}
+
+.settings-navbar {
+    width: 17vw;
+}
+
+.settings-edit-form {
+    height: 80vh;
+}
+
+.settings-long-line {
+    padding-top: 30px;
+    height: 2px;
+}

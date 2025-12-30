@@ -1,0 +1,217 @@
+.employees {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 29px;
+}
+
+.employee-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+.hide-line {
+    display: none;
+}
+
+/* TABLE */
+.employee-table {
+    width: 95%;
+    border-collapse: collapse;
+    border: 1px solid #b1b1b1;
+    border-radius: 16px;
+    margin: 0 30px 30px;
+}
+
+thead,
+th {
+    font-family: "Inter", sans-serif;
+    color: rgb(66, 88, 109);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 12px;
+    text-align: left;
+    vertical-align: auto;
+}
+
+tr {
+    font-size: 13px;
+}
+
+
+td {
+    padding: 12px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+tbody tr {
+    position: relative;
+    border-top: 1px solid #e0e0e0;
+}
+
+th:first-child,
+td:first-child {
+    text-align: center;
+}
+
+.employee-table th:nth-child(4),
+.employee-table th:nth-child(5),
+.employee-table th:nth-child(6),
+.employee-table td:nth-child(4),
+.employee-table td:nth-child(5),
+.employee-table td:nth-child(6) {
+    text-align: center;
+}
+
+
+.box {
+    width: 16px;
+    height: 16px;
+}
+
+.name-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(255, 242, 234);
+    color: #93312B;
+}
+
+.name-email {
+    display: flex;
+    flex-direction: column;
+}
+
+.emp-name {
+    margin: 0;
+    color: black;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+}
+
+.emp-email {
+    margin: 0;
+    color: rgb(107, 120, 142);
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+}
+
+.emp-id {
+    font-family: "Inter", sans-serif;
+    color: #091E42;
+    background-color: #F5F6F7;
+    padding: 5px 10px;
+    border-radius: 16px;
+    display: inline-block;
+}
+
+.emp-leads {
+    font-family: "Poppins", sans-serif;
+    color: #616161;
+}
+
+.active-class,
+.inactive-class {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "Inter", sans-serif;
+    text-transform: capitalize;
+    border-radius: 16px;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.active-class {
+    color: #027A48;
+    background-color: rgb(226, 242, 232);
+}
+
+.inactive-class {
+    color: #F15046;
+    background-color: #FFF2EA;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+}
+
+
+.actions {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dots {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.edit,
+.delete {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    padding: 6px;
+}
+
+.edit:hover,
+.delete:hover {
+    background-color: #E6E6E6;
+    border-radius: 16px;
+    z-index: 2;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.buttons-div img {
+    width: 20px;
+    height: 20px;
+}
+
+.buttons {
+    border-radius: 12px;
+    color: #636060;
+    background-color: #D9D9D9;
+    border: none;
+    padding: 10px 40px;
+    font-weight: 500;
+    font-size: 12px;
+    align-self: flex-end;
+    font-family: "Poppins", sans-serif;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.buttons-div {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px 30px 15px 10px;
+    right: 35px;
+    top: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.319);
+    box-shadow: rgba(100, 100, 111, 0.2) 5px 3px 10px 1px;
+    z-index: 1;
+}

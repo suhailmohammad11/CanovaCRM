@@ -1,0 +1,43 @@
+.schedule-date-form {
+    position: absolute;
+    right: 60px;
+    top: 110px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 2px 13px;
+    background-color: #fff;
+    margin: 10px;
+    z-index: 1;
+    border-radius: 8px;
+    border: 1px solid #0000004f;
+}
+
+.schedule-label {
+    display: flex;
+    flex-direction: column;
+    font-family: "Inter", sans-serif;
+}
+
+.schedule-title {
+    height: 10px;
+}
+
+.schedule-input {
+    padding: 10px;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    border-radius: 5px;
+    border: 1px solid #8A8A8A;
+}
+
+.sd-btn {
+    padding: 10px;
+    background-color: #363636;
+    color: white;
+    border-radius: 15px;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    text-transform: capitalize;
+    margin: 20px 10px;
+}

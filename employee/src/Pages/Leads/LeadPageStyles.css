@@ -1,0 +1,23 @@
+.leads-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.leads-page-header {
+  height: 15vh;
+  flex-shrink: 0;
+}
+
+.leads-page-search .filter-icon {
+  display: none;
+}
+
+.leads-page-leads {
+  flex: 1;
+  height: 75vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

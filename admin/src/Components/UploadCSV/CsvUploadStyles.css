@@ -1,0 +1,155 @@
+.csv-upload {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    max-width: 900px;
+    background: #fff;
+    border: 1px solid #8A8585;
+    border-radius: 16px;
+    padding: 20px 10px;
+    z-index: 5;
+}
+
+.upload-title-close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 30px 0px 30px;
+}
+
+.upload-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.upload-title p:first-child {
+    font-weight: bold;
+    font-size: 15px;
+    height: 3px;
+}
+
+.upload-title p:last-child {
+    color: #6d6D6D;
+    font-size: 13px;
+}
+
+.close-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.browse-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #292929;
+    border-style: dashed;
+    padding: 20px;
+    margin: 0px 25px;
+}
+
+.upload-img-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+
+.upload-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.or {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #6d6D6D;
+}
+
+.b-line {
+    width: 100px;
+    height: 1px;
+}
+
+.browse {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.upload-btn {
+    border: 2px solid black;
+    padding: 5px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    align-self: center;
+}
+
+.file-name-icon {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgba(11, 11, 11, 0.49);
+    align-items: center;
+    border-radius: 5px;
+    padding: 0px 20px;
+}
+
+.file-name {
+    color: #6d6D6D;
+}
+
+.download-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.cancel-next {
+    align-self: flex-end;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-right: 25px;
+}
+
+.next-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00181B;
+    border-radius: 8px;
+    padding: 5px 15px 5px 5px;
+}
+
+.next-btn {
+    color: white;
+    font-size: 16px;
+    padding: 15px;
+    background-color: inherit;
+    border-color: transparent;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.close-btn {
+    color: #6d6D6D;
+    background-color: white;
+    border: 1px solid #cecece;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.right-i {
+    width: 20px;
+    height: 20px;
+}

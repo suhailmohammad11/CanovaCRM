@@ -1,0 +1,48 @@
+.LoginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+}
+
+.logo-first-word {
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+.logo-second-word {
+    color: #E8E000;
+    font-weight: 500;
+}
+
+.login-label input {
+    background-color: #D9D9D9;
+    font-weight: bold;
+    padding: 7px 10px;
+    border-radius: 10px;
+    border-color: transparent;
+    width: 250px;
+    color: #0000007f
+}
+
+.submit-btn {
+    background-color: #D9D9D9;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 5px 12px;
+    border-color: transparent;
+    color: #0000006d;
+}

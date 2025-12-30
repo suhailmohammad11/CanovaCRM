@@ -1,0 +1,19 @@
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-page-header {
+  height: 15vh;
+  flex-shrink: 0;
+}
+
+.profile-page-form {
+  flex: 1;
+  height: 75vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

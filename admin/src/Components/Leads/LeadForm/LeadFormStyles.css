@@ -1,0 +1,43 @@
+.lead-form-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lead-form {
+    width: 60%;
+    height: 90%;
+    border: 1px solid #000;
+    border-radius: 16px;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.title-p {
+    font-weight: 500;
+    font-size: 13px;
+    height: 0;
+}
+
+.leads-form {
+    padding-left: 20px;
+}
+
+.leads-form p {
+    font-size: 10px;
+    padding: 0
+}
+
+.save-btn {
+    border-radius: 12px;
+    color: #636060;
+    background-color: #D9D9D9;
+    border-color: transparent;
+    padding: 8px 50px;
+    font-weight: bold;
+    text-align: center;
+    align-self: flex-start;
+}

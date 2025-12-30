@@ -1,0 +1,156 @@
+.leads {
+  display: flex;
+  flex-direction: column;
+  font-family: "REM", sans-serif;
+}
+
+.leads-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.table-container {
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.leads-table {
+  width: 98%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+  border: 1px solid black;
+  margin: 10px;
+  padding: 0px 10px;
+  border-radius: 20px;
+  position: relative;
+
+}
+
+.leads-table th {
+  padding: 0
+}
+
+.leads-table th,
+.leads-table td {
+  border: none;
+  font-family: "REM", sans-serif;
+  font-size: 11px;
+
+}
+
+.leads-table tbody tr td {
+  background-color: #F7F7F7;
+  border-top: 1px solid #8A8585;
+  border-bottom: 1px solid #8A8585;
+}
+
+.leads-table tbody tr td:first-child {
+  border-left: 1px solid #8A8585;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+
+.leads-table tbody tr td:last-child {
+  border-right: 1px solid #8A8585;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.thead-divider td {
+  padding: 0;
+  background: transparent;
+}
+
+.thead-divider img {
+  width: 100%;
+  height: 0;
+  display: block;
+}
+
+.leads-crumb-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 10px;
+}
+
+.leads-buttons {
+  display: flex;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin: 0px 40px;
+  padding-bottom: 30px;
+}
+
+.page-numbers button {
+  padding: 6px 12px;
+  border: none;
+  color: #667085;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.page-numbers button.active {
+  background-color: #EFF1F4;
+  color: #091E42;
+
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.prev-button,
+.next-button {
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: inherit;
+  font-size: 14px;
+  color: #344054;
+}
+
+.prev-div {
+  background-color: #fff;
+  border: 1px solid #D0D5DD;
+  padding: 10px;
+  width: 100px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+}
+
+.next-div {
+  background-color: #fff;
+  border: 1px solid #D0D5DD;
+  padding: 7px 20px;
+  width: 100px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.page-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.dots {
+  padding: 6px 10px;
+  color: #999;
+  font-weight: 600;
+  cursor: default;
+}

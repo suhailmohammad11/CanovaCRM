@@ -1,0 +1,16 @@
+.employee-page {
+    display: flex;
+}
+
+.employee-nav {
+    width: 17vw;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+}
+
+.employee-employees {
+    width: 83vw;
+}

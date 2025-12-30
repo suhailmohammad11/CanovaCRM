@@ -1,0 +1,72 @@
+.header {
+    background-color: rgb(32, 81, 229);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    height: 20vh;
+    min-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    font-family: "REM", sans-serif;
+    font-size: 22px;
+    border-radius: 25px;
+    top: -32px;
+    z-index: 1;
+}
+
+.home-header-arrow {
+    display: none;
+}
+
+.home-title {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 70px;
+    left: 30px;
+    gap: 5px;
+    padding-top: 8px;
+}
+
+.home-title p {
+    margin: 0;
+    color: white;
+}
+
+.gd-mrng {
+    font-size: 12px;
+    font-weight: 200;
+}
+
+.logo {
+    padding-top: 20px;
+    padding-left: 30px;
+    font-size: 18px;
+}
+
+.hero {
+    position: absolute;
+    width: 550px;
+    height: 140px;
+    pointer-events: none;
+}
+
+.back-page {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    color: white;
+    height: 20px;
+}
+
+.back-arrow {
+    width: 17px;
+    height: 27px;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+}
