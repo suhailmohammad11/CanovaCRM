@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import {  useMemo, useState } from "react";
 import { useAdmin } from "../../Hooks/useAdmin";
 import Employees from "../Employees/EmployeeCard/Employees";
 import ConversionRateBarChart from "../Chart/ConversionRateBarChart";
@@ -7,11 +7,11 @@ import Search from "../Search/Search";
 import "./DashboardStyles.css";
 
 const Dashboard = () => {
-  const { leads, getLeads } = useAdmin();
+  const { leads} = useAdmin();
   const navigate = useNavigate();
   const [dashboardSearch, setDashboardSearch] = useState("");
 
-  const { unAssigned, assigned, closedLeads, conversionRate } = useMemo(() => {
+  const { unAssigned, assigned, conversionRate } = useMemo(() => {
     let unAssigned = 0;
     let assigned = 0;
     let closedLeads = 0;

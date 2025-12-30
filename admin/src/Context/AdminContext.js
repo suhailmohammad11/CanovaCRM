@@ -56,7 +56,7 @@ export const AdminContextProvider = ({ children }) => {
   const getEmployees = useCallback(async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/admin/Home/Employees"
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Employees`
       );
       setEmployees(response.data);
     } catch (err) {
@@ -70,7 +70,7 @@ export const AdminContextProvider = ({ children }) => {
       const { firstName, lastName, email, password, location, language } =
         employeeForm;
       const response = await axios.post(
-        "http://localhost:4000/api/admin/Home/Employees",
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Employees`,
         { firstName, lastName, email, password, location, language }
       );
       if (response.status === 200) {
@@ -88,7 +88,7 @@ export const AdminContextProvider = ({ children }) => {
       const { firstName, lastName, email, password, location, language } =
         updatedEmployeeForm;
       const response = await axios.put(
-        `http://localhost:4000/api/admin/Home/Employees/${id}`,
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Employees/${id}`,
         { firstName, lastName, email, password, location, language }
       );
       if (response.status === 200) {
@@ -106,7 +106,7 @@ export const AdminContextProvider = ({ children }) => {
   const deleteEmployee = async (_id) => {
     try {
       await axios.delete(
-        `http://localhost:4000/api/admin/Home/Employees/${_id}`
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Employees/${_id}`
       );
       alert("Employee Deleted Successfully");
     } catch (err) {
@@ -130,7 +130,7 @@ export const AdminContextProvider = ({ children }) => {
   const getLeads = useCallback(async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/admin/Home/Leads"
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads`
       );
       setLeads(response.data);
     } catch (err) {
@@ -144,7 +144,7 @@ export const AdminContextProvider = ({ children }) => {
       const { leadName, leadEmail, source, date, leadLocation, leadLanguage } =
         newLead;
       const response = await axios.post(
-        "http://localhost:4000/api/admin/Home/Leads",
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads`,
         { leadName, leadEmail, source, date, leadLocation, leadLanguage }
       );
       console.log(response.data);
@@ -162,7 +162,7 @@ export const AdminContextProvider = ({ children }) => {
   const importLeads = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/admin/Home/Leads/importLeads"
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/importLeads`
       );
       if (response.status === 201) {
         alert("Leads imported");
@@ -178,7 +178,7 @@ export const AdminContextProvider = ({ children }) => {
   const assignLeads = async () => {
     try {
       await axios.post(
-        "http://localhost:4000/api/admin/Home/Leads/assignLeads",
+        `"${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/assignLeads`,
         {}
       );
       alert("Leads Assigned");
@@ -193,7 +193,7 @@ export const AdminContextProvider = ({ children }) => {
   const getConversionRate = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:4000/api/admin/analytics/conversion?days=14"
+        `${process.env.REACT_APP_API_URL}/api/admin/analytics/conversion?days=14`
       );
       return res.data;
     } catch (err) {
@@ -209,7 +209,7 @@ export const AdminContextProvider = ({ children }) => {
       // Import leads from CSV
 
       await axios.post(
-        "http://localhost:4000/api/admin/Home/Leads/import-from-text",
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/import-from-text`,
         { csvText },
         {
           headers: {
@@ -222,7 +222,7 @@ export const AdminContextProvider = ({ children }) => {
 
       // Assign leads
       await axios.post(
-        "http://localhost:4000/api/admin/Home/Leads/assignLeads"
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/assignLeads`
       );
 
       setProgress(100);
@@ -238,7 +238,7 @@ export const AdminContextProvider = ({ children }) => {
   const getRecentActivities = useCallback(async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/admin/activities"
+        `${process.env.REACT_APP_API_URL}/api/admin/activities`
       );
       if (response.status === 200) {
         setActivities(response.data);

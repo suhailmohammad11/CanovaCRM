@@ -23,7 +23,7 @@ const EditForm = () => {
   const adminData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/admin/Home/Settings"
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Settings`
       );
       console.log(response.data[0]);
       setAdminDetails(response.data[0]);
@@ -39,7 +39,7 @@ const EditForm = () => {
     try {
       const { _id, firstName, lastName, email, password } = updatedAdmin;
       const response = await axios.put(
-        `http://localhost:4000/api/admin/Home/Settings/${_id}`,
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Settings/${_id}`,
         { firstName, lastName, email, password }
       );
       if (response.status === 200) {
