@@ -1,14 +1,21 @@
 .csv-upload {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50%;
-    max-width: 900px;
-    background: #fff;
-    border: 1px solid #8A8585;
-    border-radius: 16px;
-    padding: 20px 10px;
-    z-index: 5;
+  width: 50%;
+  max-width: 900px;
+  background: #fff;
+  border: 1px solid #8A8585;
+  border-radius: 16px;
+  padding: 20px 10px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .upload-title-close {

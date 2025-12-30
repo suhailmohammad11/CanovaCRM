@@ -1,15 +1,18 @@
 .lead-form-wrapper {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    z-index: 999;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .lead-form {
-    width: 60%;
-    height: 90%;
+    width: 600px;
+    max-height: 90vh;
     border: 1px solid #000;
     border-radius: 16px;
     background-color: #fff;

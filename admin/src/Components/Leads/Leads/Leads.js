@@ -132,14 +132,15 @@ const Leads = () => {
           </button>
         </div>
       </div>
-      <div className="table-section">
-        <div className="table-container">
-          {showForm && !showCSV && (
+        {showForm && !showCSV && (
             <LeadForm onClose={() => setShowForm(false)} />
           )}
           {!showForm && showCSV && (
             <CsvUpload close={() => setShowCSV(false)} />
           )}
+      <div className="table-section">
+        <div className="table-container">
+
           <table className="leads-table">
             <thead>
               <tr>

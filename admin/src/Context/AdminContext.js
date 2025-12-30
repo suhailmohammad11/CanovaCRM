@@ -17,10 +17,9 @@ export const AdminContextProvider = ({ children }) => {
     location: "",
     language: "",
   });
+
   const [showAddForm, setShowAddForm] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-
-  //---------------------------------------------Employees---------------------------------------------------------------------------->//
 
   const handleEditButton = (employee) => {
     setUpdatedEmployeeForm({
@@ -31,90 +30,73 @@ export const AdminContextProvider = ({ children }) => {
       location: employee.location,
       language: employee.language,
     });
-    alert("clicked edit");
     setShowUpdateForm(true);
     setShowAddForm(false);
   };
+
   const handleDeleteButton = async (id) => {
     await deleteEmployee(id);
     getEmployees();
   };
 
-  //form change
   const handleAddEmployeeField = (e) => {
     const { name, value } = e.target;
     setEmployeeForm({ ...employeeForm, [name]: value });
   };
 
-  //update form change
   const handleUpdateEmployeeField = (e) => {
     const { name, value } = e.target;
     setUpdatedEmployeeForm({ ...updatedEmployeeForm, [name]: value });
   };
 
-  //Retrieve Employees
   const getEmployees = useCallback(async () => {
     try {
-      const response = await axios.get(
+      const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/admin/Home/Employees`
       );
-      setEmployees(response.data);
+      setEmployees(res.data);
     } catch (err) {
-      console.log("Error Retrieving Employees");
+      console.error("Error fetching employees");
     }
   }, []);
 
-  //Add New Employee
   const addEmployee = async () => {
     try {
-      const { firstName, lastName, email, password, location, language } =
-        employeeForm;
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_API_URL}/api/admin/Home/Employees`,
-        { firstName, lastName, email, password, location, language }
+        employeeForm
       );
-      if (response.status === 200) {
-        alert("Added Employee Successfully");
-      }
+      alert("Employee added");
       getEmployees();
     } catch (err) {
-      alert("Error Adding employee");
+      alert("Error adding employee");
     }
   };
 
-  //Edit Employee
   const editEmployee = async (id) => {
     try {
-      const { firstName, lastName, email, password, location, language } =
-        updatedEmployeeForm;
-      const response = await axios.put(
+      await axios.put(
         `${process.env.REACT_APP_API_URL}/api/admin/Home/Employees/${id}`,
-        { firstName, lastName, email, password, location, language }
+        updatedEmployeeForm
       );
-      if (response.status === 200) {
-        alert("Employee Edited Successfully");
-        setShowUpdateForm(false);
-        getEmployees();
-      }
+      alert("Employee updated");
+      setShowUpdateForm(false);
+      getEmployees();
     } catch (err) {
-      console.log(err);
       alert("Error updating employee");
     }
   };
 
-  //Delte Employee
-  const deleteEmployee = async (_id) => {
+  const deleteEmployee = async (id) => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_API_URL}/api/admin/Home/Employees/${_id}`
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Employees/${id}`
       );
-      alert("Employee Deleted Successfully");
+      alert("Employee deleted");
     } catch (err) {
-      alert("Error Deleting Employee");
+      alert("Error deleting employee");
     }
   };
-
-  //---------------------------------------------Leads---------------------------------------------------------------------------->//
 
   const [leads, setLeads] = useState([]);
   const [newLead, setNewLead] = useState({
@@ -126,70 +108,61 @@ export const AdminContextProvider = ({ children }) => {
     leadLanguage: "",
   });
 
-  //Fetch all leads
   const getLeads = useCallback(async () => {
     try {
-      const response = await axios.get(
+      const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads`
       );
-      setLeads(response.data);
+      setLeads(res.data);
     } catch (err) {
-      console.log(err);
+      console.error("Error fetching leads");
     }
   }, []);
 
-  //add leads
   const addLead = async () => {
     try {
-      const { leadName, leadEmail, source, date, leadLocation, leadLanguage } =
-        newLead;
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads`,
-        { leadName, leadEmail, source, date, leadLocation, leadLanguage }
+        newLead
       );
-      console.log(response.data);
-      if (response.status === 200) {
-        alert("Added Lead Successfully");
-      }
+      alert("Lead added");
       getLeads();
     } catch (err) {
-      console.log(err);
-      alert("Error adding Lead");
+      alert("Error adding lead");
     }
   };
 
-  //import leads
-  const importLeads = async () => {
+
+  const importCsvLeads = async (csvText, setProgress) => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/importLeads`
+      setProgress(30);
+
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/import-from-text`,
+        { csvText },
+        { headers: { "Content-Type": "application/json" } }
       );
-      if (response.status === 201) {
-        alert("Leads imported");
-      }
-      getLeads();
+
+      setProgress(100);
     } catch (err) {
-      console.log(err);
-      alert("Error assigning Lead");
+      console.error("CSV import failed", err);
+      throw err;
     }
   };
 
-  //assign Leads
-  const assignLeads = async () => {
+  const assignImportedLeads = async () => {
     try {
       await axios.post(
-        `"${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/assignLeads`,
-        {}
+        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/assignLeads`
       );
-      alert("Leads Assigned");
+      alert("Leads assigned successfully");
       getLeads();
     } catch (err) {
-      console.log(err);
-      alert("Error assigning Lead");
+      console.error("Lead assignment failed", err);
+      alert("Error assigning leads");
     }
   };
 
-  //conversion rate
   const getConversionRate = async () => {
     try {
       const res = await axios.get(
@@ -202,51 +175,17 @@ export const AdminContextProvider = ({ children }) => {
     }
   };
 
-  const uploadCsvAndProcessLeads = async (csvText, setProgress) => {
-    try {
-      setProgress(20);
-
-      // Import leads from CSV
-
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/import-from-text`,
-        { csvText },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      setProgress(60);
-
-      // Assign leads
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/assignLeads`
-      );
-
-      setProgress(100);
-
-      getLeads();
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  };
-
-  //get recent admin activities
   const getRecentActivities = useCallback(async () => {
     try {
-      const response = await axios.get(
+      const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/admin/activities`
       );
-      if (response.status === 200) {
-        setActivities(response.data);
-      }
+      setActivities(res.data);
     } catch (err) {
-      console.error("Error fetching recent activities", err);
+      console.error("Error fetching activities");
     }
   }, []);
+
   useEffect(() => {
     getRecentActivities();
   }, [getRecentActivities]);
@@ -255,29 +194,27 @@ export const AdminContextProvider = ({ children }) => {
     <AdminData.Provider
       value={{
         employees,
-        setEmployees,
         getEmployees,
         addEmployee,
         editEmployee,
         deleteEmployee,
         handleAddEmployeeField,
         handleUpdateEmployeeField,
+        handleEditButton,
+        handleDeleteButton,
         showAddForm,
         setShowAddForm,
         showUpdateForm,
         setShowUpdateForm,
-        handleEditButton,
-        handleDeleteButton,
         updatedEmployeeForm,
-        setNewLead,
-        newLead,
-        addLead,
-        getLeads,
         leads,
-        importLeads,
-        assignLeads,
+        getLeads,
+        newLead,
+        setNewLead,
+        addLead,
+        importCsvLeads,
+        assignImportedLeads,
         getConversionRate,
-        uploadCsvAndProcessLeads,
         activities,
         getRecentActivities,
       }}
