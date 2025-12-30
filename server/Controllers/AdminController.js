@@ -1,10 +1,13 @@
 const Lead = require("../Models/Leads");
 const Admin = require("../Models/Admin");
-const fs = require("fs");
-const path = require("path");
 const Employee = require("../Models/Employees");
 const autoAssignLeads = require("../Services/AutoAssignLeads");
 const logActivity = require("../Utils/LogActivity");
+
+const toLowerCase = (str) => {
+  if (!str || typeof str !== 'string') return 'english'; // default
+  return str.toLowerCase().trim();
+};
 
 //Fetch All Employees
 const getAllEmployees = async (req, res) => {
@@ -19,7 +22,7 @@ const getAllEmployees = async (req, res) => {
   }
 };
 
-//Fetch Employess by ID
+//Fetch Employees by ID
 const getEmployeeById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -38,16 +41,20 @@ const getEmployeeById = async (req, res) => {
 const addEmployee = async (req, res) => {
   try {
     const { firstName, lastName, email, location, language } = req.body;
+    
+    const lowercaseLanguage = toLowerCase(language);
+    const lowercaseLocation = toLowerCase(location);
+    
     const newEmployee = new Employee({
       firstName,
       lastName,
       email,
-      location,
-      language,
+      location: lowercaseLocation,
+      language: lowercaseLanguage,
     });
+    
     const employee = await newEmployee.save();
 
-    // log activity
     await logActivity({
       type: "EMPLOYEE_ADDED",
       message: `Employee ${firstName} ${lastName} added`,
@@ -76,9 +83,20 @@ const editEmployee = async (req, res) => {
   try {
     const id = req.params.id;
     const { firstName, lastName, email, location, language } = req.body;
+    
+    // Convert language to lowercase
+    const lowercaseLanguage = toLowerCase(language);
+    const lowercaseLocation = toLowerCase(location);
+    
     const editedEmployee = await Employee.findByIdAndUpdate(
       { _id: id },
-      { firstName, lastName, email, location, language },
+      { 
+        firstName, 
+        lastName, 
+        email, 
+        location: lowercaseLocation, 
+        language: lowercaseLanguage 
+      },
       { new: true }
     );
 
@@ -144,13 +162,17 @@ const addLead = async (req, res) => {
     const { leadName, leadEmail, date, source, leadLocation, leadLanguage } =
       req.body;
 
+    // Convert language and location to lowercase
+    const lowercaseLanguage = toLowerCase(leadLanguage);
+    const lowercaseLocation = toLowerCase(leadLocation);
+
     const lead = new Lead({
       leadName,
       leadEmail,
       date,
       source,
-      leadLocation,
-      leadLanguage,
+      leadLocation: lowercaseLocation,
+      leadLanguage: lowercaseLanguage,
     });
 
     const newLead = await lead.save();
@@ -226,12 +248,15 @@ const importLeadsFromText = async (req, res) => {
 
       if (!email) continue;
 
+      const lowercaseLanguage = toLowerCase(language);
+      const lowercaseLocation = toLowerCase(location);
+
       leads.push({
         leadName: name,
         leadEmail: email,
         source,
-        leadLocation: location,
-        leadLanguage: language,
+        leadLocation: lowercaseLocation,
+        leadLanguage: lowercaseLanguage,
         date: date ? new Date(date) : undefined,
       });
     }

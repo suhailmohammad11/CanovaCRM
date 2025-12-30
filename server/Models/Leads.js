@@ -21,10 +21,12 @@ const leadSchema = mongoose.Schema({
   leadLocation: {
     type: String,
     required: true,
+    set: (v) => v ? v.toLowerCase().trim() : v, 
   },
   leadLanguage: {
     type: String,
     required: true,
+    set: (v) => v ? v.toLowerCase().trim() : v, 
   },
   AssignedTo: {
     type: mongoose.Schema.Types.ObjectId,
@@ -44,6 +46,39 @@ const leadSchema = mongoose.Schema({
     type: Date,
     default: null,
   },
+});
+
+leadSchema.pre("save", function(next) {
+  if (this.leadLanguage) {
+    this.leadLanguage = this.leadLanguage.toLowerCase().trim();
+  }
+  if (this.leadLocation) {
+    this.leadLocation = this.leadLocation.toLowerCase().trim();
+  }
+  next();
+});
+
+leadSchema.pre("findOneAndUpdate", function(next) {
+  const update = this.getUpdate();
+  
+  if (update.$set) {
+    if (update.$set.leadLanguage) {
+      update.$set.leadLanguage = update.$set.leadLanguage.toLowerCase().trim();
+    }
+    if (update.$set.leadLocation) {
+      update.$set.leadLocation = update.$set.leadLocation.toLowerCase().trim();
+    }
+  }
+  
+  if (update.leadLanguage) {
+    update.leadLanguage = update.leadLanguage.toLowerCase().trim();
+  }
+  if (update.leadLocation) {
+    update.leadLocation = update.leadLocation.toLowerCase().trim();
+  }
+  
+  this.setUpdate(update);
+  next();
 });
 
 const Lead = new mongoose.model("Lead", leadSchema);

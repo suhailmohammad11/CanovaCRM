@@ -16,30 +16,40 @@ const closeLead = async (req, res) => {
       return res.status(400).json({ message: "Lead not assigned" });
     }
 
-    // Update lead status
+    const employeeId = lead.AssignedTo;
+    
     lead.status = "Closed";
     await lead.save();
 
-    // Update employee's assigned and closed leads
-    await Employee.findByIdAndUpdate(lead.AssignedTo, {
+    await Employee.findByIdAndUpdate(employeeId, {
       $pull: { assignedLeads: lead._id },
       $push: { closedLeads: lead._id },
     });
+
+    const updatedEmployee = await Employee.findById(employeeId);
+    console.log(`Employee ${employeeId} now has ${updatedEmployee.assignedLeads.length} assigned leads`);
 
     await logActivity({
       type: "LEAD_CLOSED",
       message: `Lead "${lead.leadName}" closed`,
       leadId: lead._id,
-      employeeId: lead.AssignedTo,
+      employeeId: employeeId,
       createdBy: "admin",
     });
 
-    // Re-trigger auto-assign asynchronously
-    setImmediate(() => {
-      autoAssignLeads().catch(console.error);
+    setImmediate(async () => {
+      try {
+        await autoAssignLeads();
+        console.log("Auto-assign completed after lead closure");
+      } catch (err) {
+        console.error("Auto-assign error after lead closure:", err);
+      }
     });
 
-    res.status(200).json({ message: "Lead closed successfully" });
+    res.status(200).json({ 
+      message: "Lead closed successfully",
+      assignedLeadsCount: updatedEmployee.assignedLeads.length
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: err.message });

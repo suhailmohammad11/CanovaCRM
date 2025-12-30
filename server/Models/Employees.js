@@ -21,10 +21,12 @@ const employeeSchema = mongoose.Schema(
     location: {
       type: String,
       required: true,
+      set: (v) => v ? v.toLowerCase().trim() : v, 
     },
     language: {
       type: String,
       required: true,
+      set: (v) => v ? v.toLowerCase().trim() : v, 
     },
     assignedLeads: [
       {
@@ -57,6 +59,39 @@ const employeeSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+employeeSchema.pre("save", function(next) {
+  if (this.language) {
+    this.language = this.language.toLowerCase().trim();
+  }
+  if (this.location) {
+    this.location = this.location.toLowerCase().trim();
+  }
+  next();
+});
+
+employeeSchema.pre("findOneAndUpdate", function(next) {
+  const update = this.getUpdate();
+  
+  if (update.$set) {
+    if (update.$set.language) {
+      update.$set.language = update.$set.language.toLowerCase().trim();
+    }
+    if (update.$set.location) {
+      update.$set.location = update.$set.location.toLowerCase().trim();
+    }
+  }
+  
+  if (update.language) {
+    update.language = update.language.toLowerCase().trim();
+  }
+  if (update.location) {
+    update.location = update.location.toLowerCase().trim();
+  }
+  
+  this.setUpdate(update);
+  next();
+});
 
 employeeSchema.pre("validate", function () {
   if (!this.password) {

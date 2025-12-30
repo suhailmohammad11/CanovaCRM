@@ -175,7 +175,7 @@ const Employees = ({
                 >
                   <img
                     src={
-                      emp.status === "active" ? "greet-dot.png" : "red-dot.png"
+                      emp.status === "active" ? "green-dot.png" : "red-dot.png"
                     }
                     alt="dot"
                     className="dot"
