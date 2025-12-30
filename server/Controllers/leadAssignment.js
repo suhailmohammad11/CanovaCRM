@@ -1,77 +1,80 @@
-const Employee = require("../Models/Employees");
-const Lead = require("../Models/Leads");
-
 const leadAssignments = async (req, res) => {
   try {
-    const unassignedLeads = await Lead.find({ AssignedTo: null });
+    const employees = await Employee.find({ status: "active" });
+    const MAX_ONGOING = 3;
+    
+    const assignmentsInProgress = {};
+    employees.forEach(emp => {
+      assignmentsInProgress[emp._id] = 0;
+    });
+    
+    const unassignedLeads = await Lead.find({ 
+      AssignedTo: null, 
+      status: "New" 
+    }).sort({ createdAt: 1 });
+    
     if (!unassignedLeads.length) {
       return res.status(200).json({ message: "No unassigned leads" });
     }
 
-    const employees = await Employee.find();
-    const MAX_ONGOING = 3;
-
-    // Group employees by language
-    const empByLang = {};
-    employees.forEach((emp) => {
-      if (!empByLang[emp.language]) empByLang[emp.language] = [];
-      empByLang[emp.language].push(emp);
-    });
-
-    // Round-robin index per language
-    const rrIndex = {};
-    Object.keys(empByLang).forEach((lang) => (rrIndex[lang] = 0));
-
-    const tasks = unassignedLeads.map(async (lead) => {
-      const lang = lead.leadLanguage;
-      const empList = empByLang[lang];
-      if (!empList || !empList.length) {
-        throw new Error(`No employee for language ${lang}`);
-      }
-
-      let attempts = empList.length;
-
-      while (attempts--) {
-        const emp = empList[rrIndex[lang]];
-        rrIndex[lang] = (rrIndex[lang] + 1) % empList.length;
-
-        const ongoingCount = await Lead.countDocuments({
-          AssignedTo: emp._id,
-          status: "Ongoing",
+    const results = [];
+    const failedLeads = [];
+    
+    for (const lead of unassignedLeads) {
+      const suitableEmployees = employees.filter(emp => 
+        emp.location === lead.leadLocation && 
+        emp.language === lead.leadLanguage &&
+        (emp.assignedLeads.length + assignmentsInProgress[emp._id]) < MAX_ONGOING
+      );
+      
+      if (!suitableEmployees.length) {
+        failedLeads.push({
+          leadId: lead._id,
+          reason: `No suitable employee with capacity for ${lead.leadLanguage}/${lead.leadLocation}`
         });
-
-        if (ongoingCount < MAX_ONGOING) {
-          lead.AssignedTo = emp._id;
-
-          await Promise.all([
-            lead.save(),
-            Employee.updateOne(
-              { _id: emp._id },
-              { $push: { assignedLeads: lead._id } }
-            ),
-          ]);
-
-          return { leadId: lead._id, employeeId: emp._id };
-        }
+        continue;
       }
-
-      throw new Error("All employees are at capacity");
-    });
-
-    const results = await Promise.allSettled(tasks);
-
-    const assigned = results.filter((r) => r.status === "fulfilled").length;
-    const failed = results.filter((r) => r.status === "rejected").length;
-
+      
+      suitableEmployees.sort((a, b) => {
+        const aTotal = a.assignedLeads.length + assignmentsInProgress[a._id];
+        const bTotal = b.assignedLeads.length + assignmentsInProgress[b._id];
+        return aTotal - bTotal;
+      });
+      
+      const assignedEmployee = suitableEmployees[0];
+      
+      assignmentsInProgress[assignedEmployee._id]++;
+      
+      lead.AssignedTo = assignedEmployee._id;
+      lead.status = "Ongoing";
+      
+      await Promise.all([
+        lead.save(),
+        Employee.updateOne(
+          { _id: assignedEmployee._id },
+          { $push: { assignedLeads: lead._id } }
+        )
+      ]);
+      
+      results.push({
+        leadId: lead._id,
+        employeeId: assignedEmployee._id,
+        employeeName: `${assignedEmployee.firstName} ${assignedEmployee.lastName}`
+      });
+    }
+    
     res.status(200).json({
       message: "Lead assignment completed",
-      assigned,
-      failed,
+      assigned: results.length,
+      failed: failedLeads.length,
+      details: {
+        assigned: results,
+        failed: failedLeads
+      }
     });
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
   }
 };
-
-module.exports = { leadAssignments };
