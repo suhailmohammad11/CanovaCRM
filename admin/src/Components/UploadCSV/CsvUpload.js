@@ -23,10 +23,12 @@ const CsvUpload = ({ close }) => {
     reader.onload = async (event) => {
       try {
         const csvText = event.target.result;
+
+        // Import leads only
         await importCsvLeads(csvText, setProgress);
 
         setUploading(false);
-        setStep("IMPORTED"); // ✅ stop after import
+        setStep("IMPORTED"); // stop after import
       } catch (err) {
         console.error(err);
         alert("CSV import failed");
@@ -34,6 +36,23 @@ const CsvUpload = ({ close }) => {
       }
     };
     reader.readAsText(file);
+  };
+
+  // Assign imported leads
+  const handleAssign = async () => {
+    setUploading(true);
+    setProgress(0);
+    try {
+      await assignImportedLeads((p) => setProgress(p));
+      setStep("ASSIGNED");
+      alert("Leads assigned successfully!");
+      close();
+    } catch (err) {
+      console.error(err);
+      alert("Lead assignment failed");
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -82,7 +101,10 @@ const CsvUpload = ({ close }) => {
             <div className="upload-loader">
               <p className="file-name">{fileName}</p>
               <div className="progress-bar">
-                <div className="progress-fill" style={{ width: `${progress}%` }} />
+                <div
+                  className="progress-fill"
+                  style={{ width: `${progress}%` }}
+                />
               </div>
               <p className="progress-text">{progress}% Uploading...</p>
             </div>
@@ -90,26 +112,15 @@ const CsvUpload = ({ close }) => {
         </div>
 
         <div className="cancel-next">
-          <button className="close-btn" onClick={close}>
+          <button className="close-btn" onClick={close} disabled={uploading}>
             Cancel
           </button>
 
           {step === "IMPORTED" && (
             <button
               className="next-btn"
-              onClick={async () => {
-                setUploading(true);
-                try {
-                  await assignImportedLeads();
-                  setStep("ASSIGNED");
-                  alert("Leads assigned successfully!");
-                  close();
-                } catch (err) {
-                  alert("Lead assignment failed");
-                } finally {
-                  setUploading(false);
-                }
-              }}
+              disabled={uploading}
+              onClick={handleAssign}
             >
               Next
             </button>

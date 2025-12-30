@@ -133,35 +133,47 @@ export const AdminContextProvider = ({ children }) => {
   };
 
 
-  const importCsvLeads = async (csvText, setProgress) => {
-    try {
-      setProgress(30);
+const importCsvLeads = async (csvText, setProgress) => {
+  try {
+    setProgress(30);
 
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/import-from-text`,
-        { csvText },
-        { headers: { "Content-Type": "application/json" } }
-      );
+    await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/import-from-text`,
+      { csvText },
+      { headers: { "Content-Type": "application/json" } }
+    );
 
-      setProgress(100);
-    } catch (err) {
-      console.error("CSV import failed", err);
-      throw err;
-    }
-  };
+    setProgress(100);
+  } catch (err) {
+    console.error("CSV import failed", err);
+    throw err;
+  }
+};
 
-  const assignImportedLeads = async () => {
-    try {
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/assignLeads`
-      );
-      alert("Leads assigned successfully");
-      getLeads();
-    } catch (err) {
-      console.error("Lead assignment failed", err);
-      alert("Error assigning leads");
-    }
-  };
+const assignImportedLeads = async (setProgress) => {
+  try {
+    setProgress?.(0);
+
+    await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/admin/Home/Leads/assignLeads`,
+      {},
+      {
+        onUploadProgress: (e) => {
+          if (setProgress && e.total) {
+            const percent = Math.round((e.loaded * 100) / e.total);
+            setProgress(percent);
+          }
+        },
+      }
+    );
+
+    setProgress?.(100);
+    getLeads(); 
+  } catch (err) {
+    console.error("Lead assignment failed", err);
+    throw err;
+  }
+};
 
   const getConversionRate = async () => {
     try {
